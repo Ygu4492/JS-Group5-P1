@@ -1,0 +1,7 @@
+main {
+  grid-template-columns: 400px 1fr;
+}
+
+#form > div {
+  grid-template-columns: 144px 1fr;
+}
