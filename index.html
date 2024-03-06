@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Group 5 Project 1</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
+  <link rel="stylesheet" href="./css/index.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body>
+  <header class="container mx-auto my-4 mb-16">
+    <h1 class="text-4xl font-black">Group 5 Project 1</h1>
+  </header>
+  <main class="container mx-auto grid gap-8">
+    <div class="form">
+      <h3 class="text-xl font-bold mb-8">Task Information</h3>
+      <form id="form" class="flex flex-col gap-8">
+        <div class="grid items-center">
+          <label for="name">Task Name:</label>
+          <input class="border px-2 h-8" type="text" id="name">
+        </div>
+        <div class="grid items-start">
+          <label for="description">Task Description:</label>
+          <textarea class="border px-2" name="description" id="description" cols="30" rows="4"></textarea>
+        </div>
+        <div class="grid items-center">
+          <label for="sutdent">Student Name:</label>
+          <select name="student" id="student" class="border h-8">
+            <option value="1">Gopinath, Varun</option>
+            <option value="2">Gu, Yunxiang</option>
+            <option value="3">Kaul, Ritik</option>
+            <option value="4">Vellanji Alikunju, Thajudheen</option>
+          </select>
+        </div>
+        <div class="grid items-center">
+          <label for="studentNo">Student Number:</label>
+          <input type="text" id="studentNo" class="border h-8">
+        </div>
+        <div>
+          <input class="ml-36 py-2 px-8 bg-[#7dd3fc] rounded-sm text-white cursor-pointer" type="button" value="Submit">
+        </div>
+      </form>
+    </div>
+    <div class="task-list pl-8 border-l">
+      <h3 class="text-xl font-bold mb-8">
+        Task List
+      </h3>
+    </div>
+  </main>
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+    integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+  <script src="./js/index.js"></script>
+</body>
+
+</html>
