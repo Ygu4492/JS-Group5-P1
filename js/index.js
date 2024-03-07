@@ -37,6 +37,7 @@ $(function () {
   // Task 4, search task by text
   function searchTask(text) {
     // TO DO
+    const searchValue = $("#searchInput").val();
   }
 
   // Task 3, render task list into page
@@ -47,25 +48,32 @@ $(function () {
   // Task 3, get task list from localStorage
   function getTaskListFromLocalStorage() {
     // TO DO
+
     // mock code
     return defaultTaskList;
   }
 
-  // get the task by task id
+  // Task 3, get the task by task id
   function getTaskDataById(id) {
     const taskList = getTaskListFromLocalStorage();
     const taskData = taskList.filter(({ taskId }) => taskId == id)[0];
     return taskData;
   }
 
-  // save task list into localStorage
+  // Task 2, validate task form values
+  function validateFormData(data) {
+
+  }
+
+  // Task 2, save task list in localStorage
   function saveTaskList(taskList) {
-    // TO DO
+
   }
 
   // Task 2, save task data
   function saveTaskData(data) {
     // TO DO
+    console.log(data);
     // validate the form data
     // get current task list
     // push this task into current task list
@@ -88,6 +96,7 @@ $(function () {
     const newTaskList = taskList.filter(({ taskId }) => taskId != id);
     // save new task list in localStorage
     // TO DO
+    saveTaskList(newTaskList);
   }
 
   // Task 1, get form values
@@ -99,7 +108,6 @@ $(function () {
     formValues.forEach(({ name, value }) => {
       formData[name] = value;
     });
-    console.log(formData);
     saveTaskData(formData);
   });
 
