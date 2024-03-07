@@ -19,30 +19,38 @@
       <h3 class="text-xl font-bold mb-8">Task Information</h3>
       <form id="form" class="flex flex-col gap-8">
         <div class="grid items-center">
-          <label for="name">Task Name:</label>
-          <input class="border px-2 h-8" type="text" id="name">
-        </div>
-        <div class="grid items-start">
-          <label for="description">Task Description:</label>
-          <textarea class="border px-2" name="description" id="description" cols="30" rows="4"></textarea>
+          <label for="taskId">Task Id:</label>
+          <input class="px-2 h-8" type="text" name="taskId" id="taskId" value="1" disabled>
         </div>
         <div class="grid items-center">
-          <label for="sutdent">Student Name:</label>
-          <select name="student" id="student" class="border h-8">
-            <option value="1">Gopinath, Varun</option>
-            <option value="2">Gu, Yunxiang</option>
-            <option value="3">Kaul, Ritik</option>
-            <option value="4">Vellanji Alikunju, Thajudheen</option>
+          <label for="taskName">Task Name:</label>
+          <input class="border px-2 h-8" name="taskName" id="taskName" type="text" id="name">
+        </div>
+        <div class="grid items-start">
+          <label for="taskDesc">Task Description:</label>
+          <textarea class="border px-2" name="taskDesc" id="taskDesc" cols="30" rows="4"></textarea>
+        </div>
+        <div class="grid items-center">
+          <label for="studentName">Student Name:</label>
+          <select name="studentName" id="studentName" class="border h-8 px-2" value="Gopinath, Varun">
+            <option value="Gopinath, Varun">Gopinath, Varun</option>
+            <option value="Gu, Yunxiang">Gu, Yunxiang</option>
+            <option value="Kaul, Ritik">Kaul, Ritik</option>
+            <option value="Vellanji Alikunju, Thajudheen">Vellanji Alikunju, Thajudheen</option>
           </select>
         </div>
         <div class="grid items-center">
-          <label for="studentNo">Student Number:</label>
-          <input type="text" id="studentNo" class="border h-8">
+          <label for="studentNumber">Student Number:</label>
+          <input type="text" id="studentNumber" name="studentNumber" class="border h-8 px-2">
         </div>
         <div>
-          <input class="ml-36 py-2 px-8 bg-[#7dd3fc] rounded-sm text-white cursor-pointer" type="button" value="Submit">
+          <input id="submit" class="ml-36 py-2 px-8 bg-[#7dd3fc] rounded-sm text-white cursor-pointer" type="button" value="Submit">
         </div>
       </form>
+      <div>
+        <button class="edit" data-id="1">Edit default task 1</button><br>
+        <button class="edit" data-id="2">Edit default task 2</button>
+      </div>
     </div>
     <div class="task-list pl-8 border-l">
       <h3 class="text-xl font-bold mb-8">
