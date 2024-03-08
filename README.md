@@ -13,7 +13,6 @@ Group Members:
 - Kaul, Ritik
 - Vellanji Alikunju, Thajudheen
 
-<<<<<<< HEAD
 ## About this project
 
 #### Group Category
@@ -44,8 +43,6 @@ Create a client-side JavaScript task manager with the following features and fun
 
 Have one member of the group submit the project in eConestoga.
 
-=======
->>>>>>> 5e364c9 (update README.md)
 ## Development Guide
 
 1. create a branch with your first name in lowercase, like this:
