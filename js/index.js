@@ -186,10 +186,16 @@ $(function () {
     resetForm();
   });
 
-  // mock code
+  // edit task
   $(".edit").on("click", function (e) {
     const id = $(this).attr("data-id");
     editTask(id);
+  });
+
+  // remove task
+  $(".delete").on("click", function(e) {
+    const id = $(this).attr("data-id");
+    deleteTask(id);
   });
 
   // initial page
