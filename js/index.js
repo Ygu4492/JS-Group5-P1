@@ -62,7 +62,15 @@ $(function () {
 
   // Task 2, validate task form values
   function validateFormData(data) {
-
+    if (!data.taskName || !data.taskDesc || !data.studentName || !data.studentNumber) {
+      alert("All fields are required.");
+      return false;
+    }
+    if (isNaN(data.studentNumber)) {
+      alert("Student number must be a number.");
+      return false;
+    }
+    return true;
   }
 
   // Task 2, save task list in localStorage
