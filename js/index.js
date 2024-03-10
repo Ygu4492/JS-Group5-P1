@@ -83,14 +83,12 @@ $(function () {
     // TO DO
     console.log(data);
     // validate the form data
+    if (!validateFormData(data)) { return; }
     // get current task list
-    // push this task into current task list
-    // save task list in localStorage
-    if (!validateFormData(data)) {
-      return;
-    }
     let taskList = JSON.parse(localStorage.getItem("taskList")) || [];
+    // push this task into current task list
     taskList.push(data);
+    // save task list in localStorage
     saveTaskList(taskList);
   }
 
