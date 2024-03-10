@@ -23,7 +23,7 @@
       <form id="form" class="flex flex-col gap-8">
         <div class="grid items-center">
           <label for="taskId">Task Id:</label>
-          <input class="px-2 h-8" type="text" name="taskId" id="taskId" value="1" disabled>
+          <input class="px-2 h-8" type="text" name="taskId" id="taskId" disabled>
         </div>
         <div class="grid items-center">
           <label for="taskName">Task Name:</label>
@@ -52,13 +52,9 @@
             class="ml-36 py-2 px-8 bg-[#7dd3fc] rounded-sm text-white cursor-pointer"
             type="button"
             value="Submit">
+          <input id="resetForm" class="ml-8 cursor-pointer" type="button" value="Reset">
         </div>
       </form>
-      <!-- mock code -->
-      <div>
-        <button class="edit" data-id="1">Edit default task 1</button><br>
-        <button class="edit" data-id="2">Edit default task 2</button>
-      </div>
     </div>
     <div class="task-list pl-8 border-l">
       <h3 class="text-xl font-bold mb-8">
