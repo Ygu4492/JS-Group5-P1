@@ -75,7 +75,7 @@ $(function () {
 
   // Task 2, save task list in localStorage
   function saveTaskList(taskList) {
-
+    localStorage.setItem("taskList", JSON.stringify(taskList));
   }
 
   // Task 2, save task data
@@ -86,6 +86,12 @@ $(function () {
     // get current task list
     // push this task into current task list
     // save task list in localStorage
+    if (!validateFormData(data)) {
+      return;
+    }
+    let taskList = JSON.parse(localStorage.getItem("taskList")) || [];
+    taskList.push(data);
+    saveTaskList(taskList);
   }
 
   // Task 1, edit task
