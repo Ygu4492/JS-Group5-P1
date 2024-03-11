@@ -22,16 +22,16 @@ $(function () {
       taskName: "Display the tasks on the page",
       taskDesc:
         "When the page loads, it should check localStorage and display all the tasks on the task list panel",
-      studentName: "",
-      studentNumber: "",
+      studentName: "Vellanji Alikunju,Thajudheen",
+      studentNumber: "8909235",
     },
     {
       taskId: "4",
       taskName: "Task filter",
       taskDesc:
         "Create a search input, the user should be able to filter the task via contains a certain text",
-      studentName: "",
-      studentNumber: "",
+      studentName: "Gopinath,Varun",
+      studentNumber: "8929281",
     },
   ];
 
@@ -39,50 +39,83 @@ $(function () {
   function searchTask(text) {
     // TO DO
     const searchValue = $("#searchInput").val();
-    
+
     // Retrieve the task list from localStorage or use the default list
-  const taskList = getTaskListFromLocalStorage();
+    const taskList = getTaskListFromLocalStorage();
 
-  // Filter the task list based on the searchValue
-  const filteredTaskList = taskList.filter(({ taskName, taskDesc }) =>
-    taskName.toLowerCase().includes(searchValue) ||
-    taskDesc.toLowerCase().includes(searchValue)
-  );
+    // Filter the task list based on the searchValue
+    const filteredTaskList = taskList.filter(
+      ({ taskName, taskDesc }) =>
+        taskName.toLowerCase().includes(searchValue) ||
+        taskDesc.toLowerCase().includes(searchValue)
+    );
 
-  // Render the filtered task list on the page
-  renderTaskList(filteredTaskList);
+    // Render the filtered task list on the page
+    renderTaskList(filteredTaskList);
   }
 
   // Task 3, render task list into page
   function renderTaskList() {
-    // TO DO
+    // Get the task list from localStorage
+    const taskList = getTaskListFromLocalStorage();
+
+    // Select the table body where the tasks will be rendered
     const tbody = $("tbody");
-    tbody.empty()
-    taskList.forEach(task => {
-      const taskRow = `
-        <tr>
-          <td>${task.taskId}</td>
-          <td>${task.taskName}</td>
-          <td>${task.taskDesc}</td>
-          <td>${task.studentName}</td>
-          <td>${task.studentNumber}</td>
-          <td>Actions</td> <!-- You might want to add edit/delete buttons here -->
-        </tr>
-      `;
-      tbody.append(taskRow);
+
+    // Clear existing rows in the table body
+    tbody.empty();
+
+    // Loop through the task list and create HTML elements for each task
+    taskList.forEach((task) => {
+      const row = $("<tr>");
+
+      // Create table cells for each task property
+      const taskIdCell = $("<td>").text(task.taskId);
+      const taskNameCell = $("<td>").text(task.taskName);
+      const taskDescCell = $("<td>").text(task.taskDesc);
+      const studentNameCell = $("<td>").text(task.studentName);
+      const studentNumberCell = $("<td>").text(task.studentNumber);
+
+      // Create action cell with buttons for editing and deleting
+      const actionsCell = $("<td>");
+      const editButton = $(
+        `<button class="edit" data-id="${task.taskId}">Edit</button>`
+      );
+      const deleteButton = $(
+        `<button class="delete" data-id="${task.taskId}">Delete</button>`
+      );
+
+      // Attach click events to the edit and delete buttons
+      editButton.on("click", function () {
+        editTask(task.taskId);
+      });
+
+      deleteButton.on("click", function () {
+        deleteTask(task.taskId);
+      });
+
+      // Append buttons to the actions cell
+      actionsCell.append(editButton, deleteButton);
+
+      // Append all cells to the row
+      row.append(
+        taskIdCell,
+        taskNameCell,
+        taskDescCell,
+        studentNameCell,
+        studentNumberCell,
+        actionsCell
+      );
+
+      // Append the row to the table body
+      tbody.append(row);
     });
   }
 
   // Task 3, get task list from localStorage
   function getTaskListFromLocalStorage() {
-    let taskList;
-    try {
-      taskList =
-        JSON.parse(localStorage.getItem("taskList")) || defaultTaskList;
-    } catch (error) {
-      console.error(error);
-    }
-    return taskList;
+    const storedTaskList = JSON.parse(localStorage.getItem("taskList")) || [];
+    return storedTaskList.length > 0 ? storedTaskList : defaultTaskList;
   }
 
   // Task 3, get the task by task id
@@ -133,7 +166,7 @@ $(function () {
     saveTaskList(taskList);
   }
 
-  // create an availabled task id
+  // Task 1, create an availabled task id
   function createTaskId() {
     let id = 1;
     // get current task list
@@ -147,7 +180,7 @@ $(function () {
     return id;
   }
 
-  // reset form values
+  // Task 1, reset form values
   function resetForm() {
     // reset form values
     $("#form")[0].reset();
@@ -180,10 +213,8 @@ $(function () {
 
   // initial page data
   function initialPage() {
-    // get current task list
-    const currentTaskList = getTaskListFromLocalStorage();
     // render task list
-    renderTaskList(currentTaskList);
+    renderTaskList();
     // reset form data
     resetForm();
   }
@@ -202,8 +233,6 @@ $(function () {
     });
     // save task data
     saveTaskData(formData);
-    // reset form
-    resetForm();
     // refresh page data
     initialPage();
   });
@@ -221,7 +250,7 @@ $(function () {
   });
 
   // remove task
-  $(".delete").on("click", function(e) {
+  $(".delete").on("click", function (e) {
     const id = $(this).attr("data-id");
     deleteTask(id);
   });
