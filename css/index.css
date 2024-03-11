@@ -2,6 +2,31 @@ main {
   grid-template-columns: 400px 1fr;
 }
 
-#form > div {
+#form>div {
   grid-template-columns: 144px 1fr;
+}
+
+.task-list-table th {
+  padding: 12px 8px;
+  text-align: left;
+  white-space: nowrap;
+  border-bottom: 1px solid #ddd;
+}
+
+.task-list-table td {
+  padding: 12px 8px;
+  border-bottom: 1px solid #ddd;
+}
+
+.task-list-table th:first-child,
+.task-list-table th:last-child,
+.task-list-table td:first-child,
+.task-list-table td:last-child {
+  text-align: center;
+  white-space: nowrap;
+}
+
+.edit:hover,
+.delete:hover {
+  color: #00adff;
 }

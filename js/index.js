@@ -7,7 +7,7 @@ $(function () {
       taskDesc:
         "Create a form on the page, users should be able to add, edit, and delete tasks",
       studentName: "Gu, Yunxiang",
-      studentNumber: "8094492",
+      studentNumber: "8904492",
     },
     {
       taskId: "2",
@@ -22,7 +22,7 @@ $(function () {
       taskName: "Display the tasks on the page",
       taskDesc:
         "When the page loads, it should check localStorage and display all the tasks on the task list panel",
-      studentName: "Vellanji Alikunju,Thajudheen",
+      studentName: "Vellanji Alikunju, Thajudheen",
       studentNumber: "8909235",
     },
     {
@@ -30,45 +30,45 @@ $(function () {
       taskName: "Task filter",
       taskDesc:
         "Create a search input, the user should be able to filter the task via contains a certain text",
-      studentName: "Gopinath,Varun",
+      studentName: "Gopinath, Varun",
       studentNumber: "8929281",
     },
   ];
 
-  // Task 4, search task by text
-  function searchTask(text) {
-    // TO DO
-    const searchValue = $("#searchInput").val();
+  // Task 3, get task list from localStorage
+  function getTaskListFromLocalStorage() {
+    try {
+      return JSON.parse(localStorage.getItem("taskList")) || defaultTaskList;
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
+  // Task 4, search task by text
+  function searchTask(searchValue) {
     // Retrieve the task list from localStorage or use the default list
     const taskList = getTaskListFromLocalStorage();
-
     // Filter the task list based on the searchValue
     const filteredTaskList = taskList.filter(
       ({ taskName, taskDesc }) =>
         taskName.toLowerCase().includes(searchValue) ||
         taskDesc.toLowerCase().includes(searchValue)
     );
-
     // Render the filtered task list on the page
     renderTaskList(filteredTaskList);
   }
 
   // Task 3, render task list into page
-  function renderTaskList() {
+  function renderTaskList(list) {
     // Get the task list from localStorage
-    const taskList = getTaskListFromLocalStorage();
-
+    const taskList = list || getTaskListFromLocalStorage();
     // Select the table body where the tasks will be rendered
     const tbody = $("tbody");
-
     // Clear existing rows in the table body
     tbody.empty();
-
     // Loop through the task list and create HTML elements for each task
-    taskList.forEach((task) => {
+    (taskList || []).forEach((task) => {
       const row = $("<tr>");
-
       // Create table cells for each task property
       const taskIdCell = $("<td>").text(task.taskId);
       const taskNameCell = $("<td>").text(task.taskName);
@@ -79,10 +79,10 @@ $(function () {
       // Create action cell with buttons for editing and deleting
       const actionsCell = $("<td>");
       const editButton = $(
-        `<button class="edit" data-id="${task.taskId}">Edit</button>`
+        `<button class="edit px-2" data-id="${task.taskId}">Edit</button>`
       );
       const deleteButton = $(
-        `<button class="delete" data-id="${task.taskId}">Delete</button>`
+        `<button class="delete px-2" data-id="${task.taskId}">Delete</button>`
       );
 
       // Attach click events to the edit and delete buttons
@@ -112,12 +112,6 @@ $(function () {
     });
   }
 
-  // Task 3, get task list from localStorage
-  function getTaskListFromLocalStorage() {
-    const storedTaskList = JSON.parse(localStorage.getItem("taskList")) || [];
-    return storedTaskList.length > 0 ? storedTaskList : defaultTaskList;
-  }
-
   // Task 3, get the task by task id
   function getTaskDataById(id) {
     const taskList = getTaskListFromLocalStorage();
@@ -136,8 +130,8 @@ $(function () {
       alert("All fields are required.");
       return false;
     }
-    if (isNaN(data.studentNumber)) {
-      alert("Student number must be a number.");
+    if (isNaN(data.studentNumber) || `${data.studentNumber}`.length != 7) {
+      alert("Please type 7 digital numbers of Student Number.");
       return false;
     }
     return true;
@@ -160,10 +154,19 @@ $(function () {
     }
     // get current task list
     const taskList = getTaskListFromLocalStorage();
-    // push this task into current task list
-    taskList.push(data);
+    // check if the task is to update
+    const index = taskList.findIndex(({ taskId }) => taskId === data.taskId);
+    // find the current task Id, update task
+    if (index !== -1) {
+      taskList[index] = data;
+    } else {
+      // push this task into current task list
+      taskList.push(data);
+    }
     // save task list in localStorage
     saveTaskList(taskList);
+    // refresh page data
+    initialPage();
   }
 
   // Task 1, create an availabled task id
@@ -205,10 +208,10 @@ $(function () {
     const taskList = getTaskListFromLocalStorage();
     // delete current task from list
     const newTaskList = taskList.filter(({ taskId }) => taskId != id);
-    // render new task list
-    renderTaskList(newTaskList);
     // save new task list in localStorage
     saveTaskList(newTaskList);
+    // refresh page status
+    initialPage();
   }
 
   // initial page data
@@ -233,8 +236,6 @@ $(function () {
     });
     // save task data
     saveTaskData(formData);
-    // refresh page data
-    initialPage();
   });
 
   // reset form data
@@ -243,18 +244,27 @@ $(function () {
     resetForm();
   });
 
-  // edit task
-  $(".edit").on("click", function (e) {
-    const id = $(this).attr("data-id");
-    editTask(id);
+  // search task
+  $("#searchBtn").on('click', function(e) {
+    e.preventDefault();
+    const searchValue = $("#searchInput").val();
+    searchTask(searchValue);
   });
 
-  // remove task
-  $(".delete").on("click", function (e) {
-    const id = $(this).attr("data-id");
-    deleteTask(id);
+  // reset search input
+  $("#resetSearch").on("click", function(e) {
+    e.preventDefault();
+    $("#searchInput").val("");
+    renderTaskList();
   });
 
+  // initial environment
+  try {
+    // clean cache or clean the same localStorage key but different data structure.
+    localStorage.removeItem('taskList');
+  } catch (error) {
+    console.log(error);    
+  }
   // initial page
   initialPage();
 });

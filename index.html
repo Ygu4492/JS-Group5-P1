@@ -49,10 +49,10 @@
         <div>
           <input
             id="submit"
-            class="ml-36 py-2 px-8 bg-[#7dd3fc] rounded-sm text-white cursor-pointer"
+            class="ml-36 py-2 px-8 bg-[#00adff] rounded-sm text-white cursor-pointer"
             type="button"
             value="Submit">
-          <input id="resetForm" class="ml-8 cursor-pointer" type="button" value="Reset">
+          <input id="resetForm" class="ml-8 cursor-pointer hover:text-[#00adff]" type="button" value="Reset">
         </div>
       </form>
     </div>
@@ -61,13 +61,15 @@
         Task List
       </h3>
       <form id="searchForm" class="mb-8 w-96 flex items-center">
-        <label class="w-24 items-center" for="search">Search:</label>
-        <input type="text" id="searchInput" class="border h-8 flex-1">
+        <label class="w-24 mr-4 items-center" for="search">Search:</label>
+        <input type="text" id="searchInput" class="border h-8 flex-1 px-2">
+        <input type="button" value="Search" id="searchBtn" class="ml-4 border h-8 px-4 bg-[#00adff] text-white cursor-pointer">
+        <input type="button" value="Clean" id="resetSearch" class="ml-4 cursor-pointer hover:text-[#00adff]">
       </form>
-      <table class="w-full">
+      <table class="w-full task-list-table">
         <thead>
           <tr>
-            <th class="text-left">Task Id</th>
+            <th>Task Id</th>
             <th>Task Name</th>
             <th>Task Description</th>
             <th>Student Name</th>
@@ -76,7 +78,6 @@
           </tr>
         </thead>
         <tbody>
-          <!-- Task 3 TO DO -->
         </tbody>
       </table>
     </div>
