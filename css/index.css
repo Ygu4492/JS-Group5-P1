@@ -8,14 +8,12 @@ main {
 
 .task-list-table th {
   padding: 12px 8px;
-  text-align: left;
   white-space: nowrap;
-  border-bottom: 1px solid #ddd;
+  background-color: rgba(0, 173, 255, .3);
 }
 
 .task-list-table td {
   padding: 12px 8px;
-  border-bottom: 1px solid #ddd;
 }
 
 .task-list-table th:first-child,
@@ -28,5 +26,25 @@ main {
 
 .edit:hover,
 .delete:hover {
+  color: #00adff;
+}
+
+.task-list-table tr:nth-child(2n) > td {
+  background-color: rgba(0, 173, 255, .1);
+}
+
+.task-list-table td.taskPriority {
+  text-align: center;
+}
+
+.task-list-table td.High {
+  color: red;
+}
+
+.task-list-table td.Middle {
+  color: orange;
+}
+
+.task-list-table td.Low {
   color: #00adff;
 }

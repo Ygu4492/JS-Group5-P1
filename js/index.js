@@ -12,6 +12,15 @@ $(function () {
     },
     {
       taskId: "2",
+      taskName: "Page styles desgin",
+      taskDesc:
+        "Use CSS to make it look appealing. Display tasks in different colors. This can be random, alternating, or depend on the details of the task.",
+      taskPriority: "Middle",
+      studentName: "Gu, Yunxiang",
+      studentNumber: "8904492",
+    },
+    {
+      taskId: "3",
       taskName: "Store the tasks in localStorage",
       taskDesc:
         "Validate the task form values, push the task into the current task list and store it in localStorage",
@@ -20,7 +29,7 @@ $(function () {
       studentNumber: "8925412",
     },
     {
-      taskId: "3",
+      taskId: "4",
       taskName: "Display the tasks on the page",
       taskDesc:
         "When the page loads, it should check localStorage and display all the tasks on the task list panel",
@@ -29,7 +38,7 @@ $(function () {
       studentNumber: "8909235",
     },
     {
-      taskId: "4",
+      taskId: "5",
       taskName: "Task filter",
       taskDesc:
         "Create a search input, the user should be able to filter the task via contains a certain text",
@@ -38,11 +47,11 @@ $(function () {
       studentNumber: "8929281",
     },
     {
-      taskId: "5",
-      taskName: "Page styles desgin",
+      taskId: "6",
+      taskName: "Code readability",
       taskDesc:
-        "Use CSS to make it look appealing. Display tasks in different colors. This can be random, alternating, or depend on the details of the task.",
-      taskPriority: "Middle",
+        "One mark for code readability. Make your code readable by making proper and consistent use of whitespace and indenting.",
+      taskPriority: "Low",
       studentName: "Gu, Yunxiang",
       studentNumber: "8904492",
     },
@@ -86,9 +95,11 @@ $(function () {
       const taskIdCell = $("<td>").text(task.taskId);
       const taskNameCell = $("<td>").text(task.taskName);
       const taskDescCell = $("<td>").text(task.taskDesc);
-      const taskPriorityCell = $("<td>").text(task.taskPriority);
-      const studentNameCell = $("<td>").text(task.studentName);
-      const studentNumberCell = $("<td>").text(task.studentNumber);
+      const taskPriorityCell = $("<td>")
+        .text(task.taskPriority)
+        .addClass(`taskPriority ${task.taskPriority}`);
+      const studentNameCell = $("<td>").text(task.studentName).addClass('text-center');
+      const studentNumberCell = $("<td>").text(task.studentNumber).addClass('text-center');
 
       // Create action cell with buttons for editing and deleting
       const actionsCell = $("<td>");
