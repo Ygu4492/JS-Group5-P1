@@ -289,13 +289,6 @@ $(function () {
     renderTaskList();
   });
 
-  // Task 1, initial environment
-  try {
-    // clean cache or clean the same localStorage key but different data structure.
-    localStorage.removeItem("taskList");
-  } catch (error) {
-    console.log(error);
-  }
   // Task 1, initial page
   initialPage();
 });
