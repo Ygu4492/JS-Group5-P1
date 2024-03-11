@@ -5,7 +5,7 @@ $(function () {
       taskId: "1",
       taskName: "Create task form",
       taskDesc:
-        "Create a form on the page, users should be able to add, edit, and delete tasks",
+        "Create a form on the page, users should be able to add, edit, and delete tasks. Record at least 5 different details about each task. For example, you will at least need the Task description and who it is assigned to. Choose 3 or more other details to include for each task.",
       taskPriority: "High",
       studentName: "Gu, Yunxiang",
       studentNumber: "8904492",
@@ -41,7 +41,7 @@ $(function () {
       taskId: "5",
       taskName: "Task filter",
       taskDesc:
-        "Create a search input, the user should be able to filter the task via contains a certain text",
+        "There should be a search filter that allows user to only display tasks that contain a certain text. If any detail of a task contains the text, it should be displayed. For example, if a person's name is typed in the search filter, only notes that contain their name or that are assigned to them should be displayed. Use Array.prototype.filter() to filter list of tasks.",
       taskPriority: "High",
       studentName: "Gopinath, Varun",
       studentNumber: "8929281",
@@ -50,7 +50,7 @@ $(function () {
       taskId: "6",
       taskName: "Code readability",
       taskDesc:
-        "One mark for code readability. Make your code readable by making proper and consistent use of whitespace and indenting.",
+        "Make the code readable by making proper and consistent use of whitespace and indenting.",
       taskPriority: "Low",
       studentName: "Gu, Yunxiang",
       studentNumber: "8904492",
@@ -98,8 +98,12 @@ $(function () {
       const taskPriorityCell = $("<td>")
         .text(task.taskPriority)
         .addClass(`taskPriority ${task.taskPriority}`);
-      const studentNameCell = $("<td>").text(task.studentName).addClass('text-center');
-      const studentNumberCell = $("<td>").text(task.studentNumber).addClass('text-center');
+      const studentNameCell = $("<td>")
+        .text(task.studentName)
+        .addClass("text-center");
+      const studentNumberCell = $("<td>")
+        .text(task.studentNumber)
+        .addClass("text-center");
 
       // Create action cell with buttons for editing and deleting
       const actionsCell = $("<td>");
@@ -272,14 +276,14 @@ $(function () {
   });
 
   // Task 4, search task
-  $("#searchBtn").on('click', function(e) {
+  $("#searchBtn").on("click", function (e) {
     e.preventDefault();
     const searchValue = $("#searchInput").val();
     searchTask(searchValue);
   });
 
   // Task 4, reset search input
-  $("#resetSearch").on("click", function(e) {
+  $("#resetSearch").on("click", function (e) {
     e.preventDefault();
     $("#searchInput").val("");
     renderTaskList();
@@ -288,9 +292,9 @@ $(function () {
   // Task 1, initial environment
   try {
     // clean cache or clean the same localStorage key but different data structure.
-    localStorage.removeItem('taskList');
+    localStorage.removeItem("taskList");
   } catch (error) {
-    console.log(error);    
+    console.log(error);
   }
   // Task 1, initial page
   initialPage();
