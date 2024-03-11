@@ -6,6 +6,7 @@ $(function () {
       taskName: "Create task form",
       taskDesc:
         "Create a form on the page, users should be able to add, edit, and delete tasks",
+      taskPriority: "High",
       studentName: "Gu, Yunxiang",
       studentNumber: "8904492",
     },
@@ -14,6 +15,7 @@ $(function () {
       taskName: "Store the tasks in localStorage",
       taskDesc:
         "Validate the task form values, push the task into the current task list and store it in localStorage",
+      taskPriority: "High",
       studentName: "Kaul, Ritik",
       studentNumber: "8925412",
     },
@@ -22,6 +24,7 @@ $(function () {
       taskName: "Display the tasks on the page",
       taskDesc:
         "When the page loads, it should check localStorage and display all the tasks on the task list panel",
+      taskPriority: "High",
       studentName: "Vellanji Alikunju, Thajudheen",
       studentNumber: "8909235",
     },
@@ -30,8 +33,18 @@ $(function () {
       taskName: "Task filter",
       taskDesc:
         "Create a search input, the user should be able to filter the task via contains a certain text",
+      taskPriority: "High",
       studentName: "Gopinath, Varun",
       studentNumber: "8929281",
+    },
+    {
+      taskId: "5",
+      taskName: "Page styles desgin",
+      taskDesc:
+        "Use CSS to make it look appealing. Display tasks in different colors. This can be random, alternating, or depend on the details of the task.",
+      taskPriority: "Middle",
+      studentName: "Gu, Yunxiang",
+      studentNumber: "8904492",
     },
   ];
 
@@ -73,6 +86,7 @@ $(function () {
       const taskIdCell = $("<td>").text(task.taskId);
       const taskNameCell = $("<td>").text(task.taskName);
       const taskDescCell = $("<td>").text(task.taskDesc);
+      const taskPriorityCell = $("<td>").text(task.taskPriority);
       const studentNameCell = $("<td>").text(task.studentName);
       const studentNumberCell = $("<td>").text(task.studentNumber);
 
@@ -102,6 +116,7 @@ $(function () {
         taskIdCell,
         taskNameCell,
         taskDescCell,
+        taskPriorityCell,
         studentNameCell,
         studentNumberCell,
         actionsCell
@@ -124,6 +139,7 @@ $(function () {
     if (
       !data.taskName ||
       !data.taskDesc ||
+      !data.taskPriority ||
       !data.studentName ||
       !data.studentNumber
     ) {

@@ -34,6 +34,14 @@
           <textarea class="border px-2" name="taskDesc" id="taskDesc" cols="30" rows="4"></textarea>
         </div>
         <div class="grid items-center">
+          <label for="taskPriority">Task Priority:</label>
+          <select name="taskPriority" id="taskPriority" class="border h-8 px-2" value="High">
+            <option value="High">High</option>
+            <option value="Middle">Middle</option>
+            <option value="Low">Low</option>
+          </select>
+        </div>
+        <div class="grid items-center">
           <label for="studentName">Student Name:</label>
           <select name="studentName" id="studentName" class="border h-8 px-2" value="Gopinath, Varun">
             <option value="Gopinath, Varun">Gopinath, Varun</option>
@@ -72,6 +80,7 @@
             <th>Task Id</th>
             <th>Task Name</th>
             <th>Task Description</th>
+            <th>Task Priority</th>
             <th>Student Name</th>
             <th>Student Number</th>
             <th>Actions</th>
