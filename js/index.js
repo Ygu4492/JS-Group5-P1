@@ -1,4 +1,5 @@
 $(function () {
+  // default task list
   const defaultTaskList = [
     {
       taskId: "1",
