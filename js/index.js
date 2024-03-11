@@ -60,7 +60,7 @@ $(function () {
 
   // Task 3, render task list into page
   function renderTaskList(list) {
-    // Get the task list from localStorage
+    // Get the task list from params or localStorage
     const taskList = list || getTaskListFromLocalStorage();
     // Select the table body where the tasks will be rendered
     const tbody = $("tbody");
@@ -173,9 +173,9 @@ $(function () {
   function createTaskId() {
     let id = 1;
     // get current task list
-    const currentTaskList = getTaskListFromLocalStorage();
+    const taskList = getTaskListFromLocalStorage();
     // get current task id from task list
-    const ids = currentTaskList.map(({ taskId }) => +taskId);
+    const ids = taskList.map(({ taskId }) => +taskId);
     // get an availabled id
     while (ids.includes(id)) {
       id++;
@@ -214,12 +214,12 @@ $(function () {
     initialPage();
   }
 
-  // initial page data
+  // Task 1, initial page data
   function initialPage() {
-    // render task list
-    renderTaskList();
     // reset form data
     resetForm();
+    // render task list
+    renderTaskList();
   }
 
   // Task 1, get form values
@@ -238,33 +238,33 @@ $(function () {
     saveTaskData(formData);
   });
 
-  // reset form data
+  // Task 1, reset form data
   $("#resetForm").on("click", function (e) {
     e.preventDefault();
     resetForm();
   });
 
-  // search task
+  // Task 4, search task
   $("#searchBtn").on('click', function(e) {
     e.preventDefault();
     const searchValue = $("#searchInput").val();
     searchTask(searchValue);
   });
 
-  // reset search input
+  // Task 4, reset search input
   $("#resetSearch").on("click", function(e) {
     e.preventDefault();
     $("#searchInput").val("");
     renderTaskList();
   });
 
-  // initial environment
+  // Task 1, initial environment
   try {
     // clean cache or clean the same localStorage key but different data structure.
     localStorage.removeItem('taskList');
   } catch (error) {
     console.log(error);    
   }
-  // initial page
+  // Task 1, initial page
   initialPage();
 });
