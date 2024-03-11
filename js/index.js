@@ -39,11 +39,38 @@ $(function () {
   function searchTask(text) {
     // TO DO
     const searchValue = $("#searchInput").val();
+    
+    // Retrieve the task list from localStorage or use the default list
+  const taskList = getTaskListFromLocalStorage();
+
+  // Filter the task list based on the searchValue
+  const filteredTaskList = taskList.filter(({ taskName, taskDesc }) =>
+    taskName.toLowerCase().includes(searchValue) ||
+    taskDesc.toLowerCase().includes(searchValue)
+  );
+
+  // Render the filtered task list on the page
+  renderTaskList(filteredTaskList);
   }
 
   // Task 3, render task list into page
   function renderTaskList() {
     // TO DO
+    const tbody = $("tbody");
+    tbody.empty()
+    taskList.forEach(task => {
+      const taskRow = `
+        <tr>
+          <td>${task.taskId}</td>
+          <td>${task.taskName}</td>
+          <td>${task.taskDesc}</td>
+          <td>${task.studentName}</td>
+          <td>${task.studentNumber}</td>
+          <td>Actions</td> <!-- You might want to add edit/delete buttons here -->
+        </tr>
+      `;
+      tbody.append(taskRow);
+    });
   }
 
   // Task 3, get task list from localStorage
