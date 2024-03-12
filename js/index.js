@@ -68,15 +68,16 @@ $(function () {
 
   // Task 4, search task by text
   function searchTask(searchValue) {
-    // Retrieve the task list from localStorage or use the default list
+    const trimmedSearchValue = searchValue.trim().toLowerCase();
     const taskList = getTaskListFromLocalStorage();
-    // Filter the task list based on the searchValue
     const filteredTaskList = taskList.filter(
-      ({ taskName, taskDesc }) =>
-        taskName.toLowerCase().includes(searchValue) ||
-        taskDesc.toLowerCase().includes(searchValue)
+      (task) =>
+        task.taskName.toLowerCase().includes(trimmedSearchValue) ||
+        task.taskDesc.toLowerCase().includes(trimmedSearchValue) ||
+        task.taskPriority.toLowerCase().includes(trimmedSearchValue) ||
+        task.studentName.toLowerCase().includes(trimmedSearchValue) ||
+        task.studentNumber.includes(trimmedSearchValue)
     );
-    // Render the filtered task list on the page
     renderTaskList(filteredTaskList);
   }
 
@@ -145,8 +146,7 @@ $(function () {
   // Task 3, get the task by task id
   function getTaskDataById(id) {
     const taskList = getTaskListFromLocalStorage();
-    const taskData = taskList.filter(({ taskId }) => taskId == id)[0];
-    return taskData;
+    return taskList.find((task) => task.taskId == id);
   }
 
   // Task 2, validate task form values
@@ -161,7 +161,7 @@ $(function () {
       alert("All fields are required.");
       return false;
     }
-    if (isNaN(data.studentNumber) || `${data.studentNumber}`.length != 7) {
+    if (isNaN(data.studentNumber) || data.studentNumber.length != 7) {
       alert("Please type 7 digital numbers of Student Number.");
       return false;
     }
@@ -208,9 +208,7 @@ $(function () {
     // get current task id from task list
     const ids = taskList.map(({ taskId }) => +taskId);
     // get an availabled id
-    while (ids.includes(id)) {
-      id++;
-    }
+    while (ids.includes(id)) { id++ }
     return id;
   }
 
@@ -218,17 +216,15 @@ $(function () {
   function resetForm() {
     // reset form values
     $("#form")[0].reset();
-    // initial task id
-    const id = createTaskId();
     // set task id in the form
-    $("#taskId").val(id);
+    $("#taskId").val(createTaskId());
   }
 
   // Task 1, edit task
   function editTask(id) {
     // get task data by task id
     const taskData = getTaskDataById(id) || {};
-    // render task values into page
+    // The for loop traverses the keys and render data.
     for (let key in taskData) {
       $(`#${key}`).val(taskData[key]);
     }
@@ -236,11 +232,11 @@ $(function () {
 
   // Task 1, delete task
   function deleteTask(id) {
-    const taskList = getTaskListFromLocalStorage();
+    let taskList = getTaskListFromLocalStorage();
     // delete current task from list
-    const newTaskList = taskList.filter(({ taskId }) => taskId != id);
+    taskList = taskList.filter(({ taskId }) => taskId != id);
     // save new task list in localStorage
-    saveTaskList(newTaskList);
+    saveTaskList(taskList);
     // refresh page status
     initialPage();
   }
