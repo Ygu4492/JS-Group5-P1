@@ -200,7 +200,8 @@ $(function () {
     initialPage();
   }
 
-  // Task 1, create an availabled task id
+  // Task 1, create an available task id
+  // If a task is deleted, its task id will be released to use again
   function createTaskId() {
     let id = 1;
     // get current task list
@@ -208,7 +209,9 @@ $(function () {
     // get current task id from task list
     const ids = taskList.map(({ taskId }) => +taskId);
     // get an availabled id
-    while (ids.includes(id)) { id++ }
+    while (ids.includes(id)) {
+      id++;
+    }
     return id;
   }
 
