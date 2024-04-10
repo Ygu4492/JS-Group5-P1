@@ -30,6 +30,19 @@ Group Members:
 
 #### Development Guide
 
+##### Preparation
+```bash
+$ npm i
+```
+
+##### Start Development
+```bash
+$ npm start
+```
+
+##### Development
+Open Chrome browse http://localhost:4000
+
 ##### API Document
 ```JavaScript
 // create a task
@@ -39,7 +52,7 @@ fetch("/task/add", {
     "Content-Type": "application/json",
   },
   body: JSON.stringify({
-    taskId: "Task Id",
+    taskId: "1",
     taskName: "Task Name",
     taskDesc: "Task Description",
     taskPriority: "High",
@@ -55,7 +68,7 @@ fetch("/task/add", {
     "Content-Type": "application/json",
   },
   body: JSON.stringify({
-    taskId: "Task Id",
+    taskId: "1",
     taskName: "Task Name",
     taskDesc: "Task Description",
     taskPriority: "High",
