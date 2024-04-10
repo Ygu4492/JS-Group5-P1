@@ -1,4 +1,5 @@
-# Adv JavaScript Group Project 1
+
+# Adv JavaScript Group Project 2
 
 ## Professor: Anshul Sharma
 
@@ -13,51 +14,78 @@ Group Members:
 - Kaul, Ritik
 - Vellanji Alikunju, Thajudheen
 
-## About this project
+---
 
-#### Group Category
+### Instructions
 
-Groups for Project 1
+**Gopinath, Varun:**
 
-#### Group Name
+**Gu, Yunxiang:** Write a REST API server for nodejs using the http-server or express module. The API should support the following functions: 1. Read all tasks 2. Read a single task 3. Create a new task 4. Update a task 5. Delete a task. Make sure your REST API follows REST conventions.  The tasks should be saved to a json file on the server side.
 
-Group 5
+**Kaul, Ritik:**
 
-#### Instructions
+**Vellanji Alikunju, Thajudheen:**
 
-Create a client-side JavaScript task manager with the following features and functionality.
+---
 
-- 3 Marks - Users should be able to add, edit, and delete tasks.
+#### Development Guide
 
-- 3 Marks - Record at least 5 different details about each task. For example, you will at least need the Task description and who it is assigned to. Choose 3 or more other details to include for each task.
+##### API Document
+```JavaScript
+// create a task
+fetch("/task/add", {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json",
+  },
+  body: JSON.stringify({
+    taskId: "Task Id",
+    taskName: "Task Name",
+    taskDesc: "Task Description",
+    taskPriority: "High",
+    studentName: "Student Name",
+    studentNumber: "Student Number"
+  })
+});
 
-- 3 Marks - Store the tasks in localStorage. When the page loads, it should check localStorage and display all the tasks.
+// update a task
+fetch("/task/add", {
+  method: "PUT",
+  headers: {
+    "Content-Type": "application/json",
+  },
+  body: JSON.stringify({
+    taskId: "Task Id",
+    taskName: "Task Name",
+    taskDesc: "Task Description",
+    taskPriority: "High",
+    studentName: "Student Name",
+    studentNumber: "Student Number"
+  })
+});
 
-- 3 Marks - There should be a search filter that allows you to only display tasks that contain a certain text. If any detail of a task contains the text, it should be displayed. For example, if a person's name is typed in the search filter, only notes that contain their name or that are assigned to them should be displayed. Use Array.prototype.filter() to filter list of tasks.
+// read all tasks
+fetch("/task/get");
+// read with a search value
+fetch("/task/get?searchValue=abc");
 
-- 1 Mark - Use CSS to make it look appealing. Display tasks in different colors. This can be random, alternating, or depend on the details of the task.
-
-- 1 Mark – One mark for code readability. Make your code readable by making proper and consistent use of whitespace and indenting.
-
-- 1 Mark - One mark for code maintainability. Make good use of control structures, and standard and custom functions to reduce duplicate code.
-
-Have one member of the group submit the project in eConestoga.
-
-## Development Guide
-
-1. create a branch with your first name in lowercase, like this:
-
-```bash
-git checkout -b yunxiang
+// delete a task
+fetch("/task/delete", {
+  method: "DELETE",
+  headers: {
+    "Content-Type": "application/json",
+  },
+  body: JSON.stringify({
+    taskId: "Task Id",
+  })
+});
 ```
 
-2. Do your task and push your code to your branch
-
-3. merge to the main branch, like this:
-
-```bash
-git checkout main
-git merge yunxiang
-git commit -m 'some comments about your push'
-git push origin main
+##### Data structure from API response
+```JavaScript
+{
+  success: true,
+  data: [], // task list
+  message: "message"
+}
 ```

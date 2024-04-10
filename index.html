@@ -10,7 +10,7 @@
   <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
   <!-- Custom Styles -->
-  <link rel="stylesheet" href="./css/index.css">
+  <link rel="stylesheet" href="/css/index.css">
 </head>
 
 <body>
@@ -55,11 +55,7 @@
           <input type="text" id="studentNumber" name="studentNumber" class="border h-8 px-2">
         </div>
         <div>
-          <input
-            id="submit"
-            class="ml-36 py-2 px-8 bg-[#00adff] rounded-sm text-white cursor-pointer"
-            type="button"
-            value="Submit">
+          <input id="submit" class="ml-36 py-2 px-8 bg-[#00adff] rounded-sm text-white cursor-pointer" type="button" value="Submit">
           <input id="resetForm" class="ml-8 cursor-pointer hover:text-[#00adff]" type="button" value="Reset">
         </div>
       </form>
@@ -92,9 +88,60 @@
     </div>
   </main>
   <!-- jQuery-3.7.1 -->
-  <script src="https://code.jquery.com/jquery-3.7.1.min.js"
-    integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
-  <script src="./js/index.js"></script>
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+  <script src="/js/index.js"></script>
+  <script>
+    const testFetch = async () => {
+      fetch("/task/get?searchValue=gu").then(res => {
+        if (res.ok) {
+          return res.json();
+        }
+      }).then((res) => {
+        console.log(res);
+      });
+
+      // fetch("/task/add", {
+      //   method: "POST",
+      //   headers: {
+      //     "Content-Type": "application/json",
+      //   },
+      //   body: JSON.stringify({
+      //     taskId: "2",
+      //     taskName: "Mock Test",
+      //     taskDesc: "Mock desc",
+      //     taskPriority: "High",
+      //     studentName: "Gu Yunxiang",
+      //     studentNumber: "8904492"
+      //   })
+      // });
+
+      // fetch("/task/update", {
+      //   method: "PUT",
+      //   headers: {
+      //     "Content-Type": "application/json",
+      //   },
+      //   body: JSON.stringify({
+      //     taskId: "2",
+      //     taskName: "Mock Test 33",
+      //     taskDesc: "Mock desc",
+      //     taskPriority: "High",
+      //     studentName: "Gu Yunxiang",
+      //     studentNumber: "8904492"
+      //   })
+      // });
+
+      // fetch("/task/delete", {
+      //   method: "DELETE",
+      //   headers: {
+      //     "Content-Type": "application/json"
+      //   },
+      //   body: JSON.stringify({
+      //     taskId: "2"
+      //   })
+      // });
+    }
+    testFetch();
+  </script>
 </body>
 
 </html>
