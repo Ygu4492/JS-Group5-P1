@@ -1,90 +1,31 @@
 $(function () {
-  // default task list
-  const defaultTaskList = [
-    {
-      taskId: "1",
-      taskName: "Create task form",
-      taskDesc:
-        "Create a form on the page, users should be able to add, edit, and delete tasks. Record at least 5 different details about each task. For example, you will at least need the Task description and who it is assigned to. Choose 3 or more other details to include for each task.",
-      taskPriority: "High",
-      studentName: "Gu, Yunxiang",
-      studentNumber: "8904492",
-    },
-    {
-      taskId: "2",
-      taskName: "Page styles desgin",
-      taskDesc:
-        "Use CSS to make it look appealing. Display tasks in different colors. This can be random, alternating, or depend on the details of the task.",
-      taskPriority: "Middle",
-      studentName: "Gu, Yunxiang",
-      studentNumber: "8904492",
-    },
-    {
-      taskId: "3",
-      taskName: "Store the tasks in localStorage",
-      taskDesc:
-        "Validate the task form values, push the task into the current task list and store it in localStorage",
-      taskPriority: "High",
-      studentName: "Kaul, Ritik",
-      studentNumber: "8925412",
-    },
-    {
-      taskId: "4",
-      taskName: "Display the tasks on the page",
-      taskDesc:
-        "When the page loads, it should check localStorage and display all the tasks on the task list panel",
-      taskPriority: "High",
-      studentName: "Vellanji Alikunju, Thajudheen",
-      studentNumber: "8909235",
-    },
-    {
-      taskId: "5",
-      taskName: "Task filter",
-      taskDesc:
-        "There should be a search filter that allows user to only display tasks that contain a certain text. If any detail of a task contains the text, it should be displayed. For example, if a person's name is typed in the search filter, only notes that contain their name or that are assigned to them should be displayed. Use Array.prototype.filter() to filter list of tasks.",
-      taskPriority: "High",
-      studentName: "Gopinath, Varun",
-      studentNumber: "8929281",
-    },
-    {
-      taskId: "6",
-      taskName: "Code readability",
-      taskDesc:
-        "Make the code readable by making proper and consistent use of whitespace and indenting.",
-      taskPriority: "Low",
-      studentName: "Gu, Yunxiang",
-      studentNumber: "8904492",
-    },
-  ];
 
   // Task 3, get task list from localStorage
-  function getTaskListFromLocalStorage() {
+  async function getTaskListFromServer(searchValue = "") {
     try {
-      return JSON.parse(localStorage.getItem("taskList")) || defaultTaskList;
+      const host = "/task/get";
+      const url = searchValue ? host + "?searchValue=" + searchValue : host;
+      const res = await fetch(url).then((res) => {
+        if (res.ok) {
+          return res.json();
+        }
+      });
+      return res.data;
     } catch (error) {
       console.log(error);
     }
   }
 
   // Task 4, search task by text
-  function searchTask(searchValue) {
-    const trimmedSearchValue = searchValue.trim().toLowerCase();
-    const taskList = getTaskListFromLocalStorage();
-    const filteredTaskList = taskList.filter(
-      (task) =>
-        task.taskName.toLowerCase().includes(trimmedSearchValue) ||
-        task.taskDesc.toLowerCase().includes(trimmedSearchValue) ||
-        task.taskPriority.toLowerCase().includes(trimmedSearchValue) ||
-        task.studentName.toLowerCase().includes(trimmedSearchValue) ||
-        task.studentNumber.includes(trimmedSearchValue)
-    );
-    renderTaskList(filteredTaskList);
+  async function searchTask(searchValue) {
+    const taskList = await getTaskListFromServer(searchValue);
+    renderTaskList(taskList);
   }
 
   // Task 3, render task list into page
-  function renderTaskList(list) {
+  async function renderTaskList(list) {
     // Get the task list from params or localStorage
-    const taskList = list || getTaskListFromLocalStorage();
+    const taskList = list || (await getTaskListFromServer());
     // Select the table body where the tasks will be rendered
     const tbody = $("tbody");
     // Clear existing rows in the table body
@@ -144,8 +85,8 @@ $(function () {
   }
 
   // Task 3, get the task by task id
-  function getTaskDataById(id) {
-    const taskList = getTaskListFromLocalStorage();
+  async function getTaskDataById(id) {
+    const taskList = await getTaskListFromServer();
     return taskList.find((task) => task.taskId == id);
   }
 
@@ -168,44 +109,43 @@ $(function () {
     return true;
   }
 
-  // Task 2, save task list in localStorage
-  function saveTaskList(taskList) {
-    try {
-      localStorage.setItem("taskList", JSON.stringify(taskList));
-    } catch (error) {
-      console.error(error);
-    }
-  }
-
   // Task 2, save task data
-  function saveTaskData(data) {
+  async function saveTaskData(data) {
     // validate the form data
     if (!validateFormData(data)) {
       return;
     }
     // get current task list
-    const taskList = getTaskListFromLocalStorage();
+    const taskList = await getTaskListFromServer();
     // check if the task is to update
     const index = taskList.findIndex(({ taskId }) => taskId === data.taskId);
-    // find the current task Id, update task
+    let host;
     if (index !== -1) {
-      taskList[index] = data;
+      fetch("/task/update", {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
     } else {
-      // push this task into current task list
-      taskList.push(data);
+      await fetch("/task/add", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
     }
-    // save task list in localStorage
-    saveTaskList(taskList);
     // refresh page data
     initialPage();
   }
 
-  // Task 1, create an available task id
   // If a task is deleted, its task id will be released to use again
-  function createTaskId() {
+  async function createTaskId() {
     let id = 1;
     // get current task list
-    const taskList = getTaskListFromLocalStorage();
+    const taskList = await getTaskListFromServer();
     // get current task id from task list
     const ids = taskList.map(({ taskId }) => +taskId);
     // get an availabled id
@@ -216,17 +156,18 @@ $(function () {
   }
 
   // Task 1, reset form values
-  function resetForm() {
+  async function resetForm() {
     // reset form values
     $("#form")[0].reset();
+    const id = await createTaskId();
     // set task id in the form
-    $("#taskId").val(createTaskId());
+    $("#taskId").val(id);
   }
 
   // Task 1, edit task
-  function editTask(id) {
+  async function editTask(id) {
     // get task data by task id
-    const taskData = getTaskDataById(id) || {};
+    const taskData = await getTaskDataById(id) || {};
     // The for loop traverses the keys and render data.
     for (let key in taskData) {
       $(`#${key}`).val(taskData[key]);
@@ -234,12 +175,16 @@ $(function () {
   }
 
   // Task 1, delete task
-  function deleteTask(id) {
-    let taskList = getTaskListFromLocalStorage();
-    // delete current task from list
-    taskList = taskList.filter(({ taskId }) => taskId != id);
-    // save new task list in localStorage
-    saveTaskList(taskList);
+  async function deleteTask(taskId) {
+    await fetch("/task/delete", {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        taskId,
+      }),
+    });
     // refresh page status
     initialPage();
   }
