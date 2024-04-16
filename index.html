@@ -9,6 +9,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
   <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="/libs/jquery.toast.min.css">
   <!-- Custom Styles -->
   <link rel="stylesheet" href="/css/index.css">
 </head>
@@ -89,59 +90,9 @@
   </main>
   <!-- jQuery-3.7.1 -->
   <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+  <script src="/libs/jquery.toast.min.js"></script>
+  <script src="/js/utils.js"></script>
   <script src="/js/index.js"></script>
-  <script>
-    const testFetch = async () => {
-      // fetch("/task/get?searchValue=gu").then(res => {
-      //   if (res.ok) {
-      //     return res.json();
-      //   }
-      // }).then((res) => {
-      //   console.log(res);
-      // });
-
-      // fetch("/task/add", {
-      //   method: "POST",
-      //   headers: {
-      //     "Content-Type": "application/json",
-      //   },
-      //   body: JSON.stringify({
-      //     taskId: "2",
-      //     taskName: "Mock Test",
-      //     taskDesc: "Mock desc",
-      //     taskPriority: "High",
-      //     studentName: "Gu Yunxiang",
-      //     studentNumber: "8904492"
-      //   })
-      // });
-
-      // fetch("/task/update", {
-      //   method: "PUT",
-      //   headers: {
-      //     "Content-Type": "application/json",
-      //   },
-      //   body: JSON.stringify({
-      //     taskId: "2",
-      //     taskName: "Mock Test 33",
-      //     taskDesc: "Mock desc",
-      //     taskPriority: "High",
-      //     studentName: "Gu Yunxiang",
-      //     studentNumber: "8904492"
-      //   })
-      // });
-
-      // fetch("/task/delete", {
-      //   method: "DELETE",
-      //   headers: {
-      //     "Content-Type": "application/json"
-      //   },
-      //   body: JSON.stringify({
-      //     taskId: "2"
-      //   })
-      // });
-    }
-    testFetch();
-  </script>
 </body>
 
 </html>

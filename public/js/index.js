@@ -99,11 +99,11 @@ $(function () {
       !data.studentName ||
       !data.studentNumber
     ) {
-      alert("All fields are required.");
+      showMessage.error("All fields are required.");
       return false;
     }
     if (isNaN(data.studentNumber) || data.studentNumber.length != 7) {
-      alert("Please type 7 digital numbers of Student Number.");
+      showMessage.error("Please type 7 digital numbers of Student Number.");
       return false;
     }
     return true;
@@ -121,21 +121,31 @@ $(function () {
     const index = taskList.findIndex(({ taskId }) => taskId === data.taskId);
     let host;
     if (index !== -1) {
-      fetch("/task/update", {
+      const res = await fetch("/task/update", {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(data),
+      }).then((res) => {
+        if (res.ok) {
+          return res.json();
+        }
       });
+      showMessage.message(res);
     } else {
-      await fetch("/task/add", {
+      const res = await fetch("/task/add", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(data),
+      }).then((res) => {
+        if (res.ok) {
+          return res.json();
+        }
       });
+      showMessage.message(res);
     }
     // refresh page data
     initialPage();
@@ -176,7 +186,7 @@ $(function () {
 
   // Task 1, delete task
   async function deleteTask(taskId) {
-    await fetch("/task/delete", {
+    const res = await fetch("/task/delete", {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
@@ -184,7 +194,12 @@ $(function () {
       body: JSON.stringify({
         taskId,
       }),
+    }).then((res) => {
+      if (res.ok) {
+        return res.json();
+      }
     });
+    showMessage.message(res);
     // refresh page status
     initialPage();
   }
