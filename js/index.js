@@ -233,15 +233,19 @@ $(function () {
     }
   }
 
-  // Task 1, delete task
   function deleteTask(id) {
-    let taskList = getTaskListFromLocalStorage();
-    // delete current task from list
-    taskList = taskList.filter(({ taskId }) => taskId != id);
-    // save new task list in localStorage
-    saveTaskList(taskList);
-    // refresh page status
-    initialPage();
+    // Send a DELETE request to the server to delete the task
+    $.ajax({
+      url: `/tasks/${id}`,
+      type: 'DELETE',
+      success: function(result) {
+        // On success, refresh page status
+        initialPage();
+      },
+      error: function(error) {
+        console.error('Error deleting task:', error);
+      }
+    });
   }
 
   // Task 1, initial page data
